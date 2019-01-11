@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="91dp"
-        android:layout_height="61dp"
-        android:text="日/周"
-         />
-
+    tools:context="UI.HomeActivity">
+    />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/addCourse"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/logout_selector"
+
+        />
+
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD"
-         app:layout_constraintEnd_toEndOf="parent"/>
+        android:id="@+id/course"
+        ></ListView>
 
-     />
+
 
 </android.support.constraint.ConstraintLayout>
