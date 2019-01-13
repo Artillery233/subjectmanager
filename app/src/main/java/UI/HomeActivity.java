@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.subjectmanager.subjectmanager.R;
 
@@ -17,6 +18,7 @@ import Adapter.CourseAdapter;
 import database.AppDatabase;
 import database.CourseEntity.CourseEntity;
 import database.dao.Coursedao;
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -42,15 +44,19 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         AppDatabase database = AppDatabase.getInstance();
-        CourseEntity courseEntity = new CourseEntity();
         Coursedao dao = database.getSubjectDao();
-        //增加
-        courseEntity.setCname("Math");
-        courseEntity.setCNO("12021");
-        courseEntity.setCTeacher("Liuxiaodong");
-        courseEntity.setCStart("2.30pm");
-        courseEntity.setCEnd("3.00pm");
-        courseEntity.setAlter(false);
+
+        mDisposable.add(
+                dao.getAll()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(subjects -> {
+                            courseList.addAll(subjects);
+                            adapter.notifyDataSetChanged();
+
+                        }, throwable -> {
+                            //出错的时候的处理
+                        }));
         adapter = new CourseAdapter(HomeActivity.this, R.layout.course_item_layout, courseList);
         ListView listView = findViewById(R.id.course);
         listView.setAdapter(adapter);
@@ -59,87 +65,15 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CourseEntity course = courseList.get(position);
                 Intent intent = new Intent(HomeActivity.this, DetailsActivity.class);
-                intent.putExtra("Course", course.getCname());
+                intent.putExtra("Course",course);
                 startActivity(intent);
             }
         });
-        mDisposable.add(
-                dao.add(courseEntity)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(subjects -> {
 
-                        }, throwable -> {
-                            //出错的时候的处理
-                        }));
-        mDisposable.add(
-                dao.getAll()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(subjects -> {
-                            //获取数据后的处理
-                            //subjects的类型是List<SubjectEntity>
-                            //Adapter.setList(subjects)
-                            courseList = subjects;
-                            adapter.notifyDataSetChanged();
 
-                        }, throwable -> {
-                            //出错的时候的处理
-                        }));
 
 
     }
-
-    private void initCourse() {
-        //接收数据库的数据
-//        AppDatabase database = AppDatabase.getInstance();
-//        CourseEntity courseEntity = new CourseEntity();
-//        Coursedao dao = database.getSubjectDao();
-//        //增加
-//        courseEntity.setCname("Math");
-//        courseEntity.setCNO("12021");
-//        courseEntity.setCTeacher("Liuxiaodong");
-//        courseEntity.setCStart("2.30pm");
-//        courseEntity.setCEnd("3.00pm");
-//        courseEntity.setAlter(false);
-//        dao.add(courseEntity);
-//        CourseEntity Chinese = new CourseEntity();
-//        Chinese.setCname("语文");
-//        Chinese.setCNO("12022");
-//        Chinese.setCTeacher("Maoqin");
-//        Chinese.setCStart("9.50am");
-//        Chinese.setCEnd("10.30am");
-//        Chinese.setAlter(true);
-//        dao.add(Chinese);
-//                mDisposable.add(
-//                        dao.getAll()
-//                                .subscribeOn(Schedulers.io())
-//                                .observeOn(AndroidSchedulers.mainThread())
-//                                .subscribe(subjects -> {
-//                                    //获取数据后的处理
-//                                    //subjects的类型是List<SubjectEntity>
-//                                    //Adapter.setList(subjects)
-//                                    courseList = subjects;
-//                                }, throwable -> {
-//                                    //出错的时候的处理
-//                                }));
-
-
-//        //查询单个
-//        mDisposable.add(
-//                dao.getOne("Android")
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidScheduler.mainThread())
-//                        .subscribe(subject -> {
-//                            //获取数据后的处理
-//                            //subject的类型是SubjectEntity
-//                            //编辑操作
-//                        }, throwable -> {
-//                            //出错的时候的处理
-//                        }));
-
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

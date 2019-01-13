@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="30dp"/>
     <EditText
-        android:id="@+id/Cname1"
+        android:id="@+id/upCname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/Cname"
@@ -31,12 +31,12 @@
         android:id="@+id/CNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/Cname1"
+        app:layout_constraintTop_toBottomOf="@+id/upCname"
         android:textSize="30dp"
         android:text="课程编号"
         />
     <EditText
-        android:id="@+id/CNo1"
+        android:id="@+id/upCNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/CNo"
@@ -47,11 +47,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/CNo1"
+        app:layout_constraintTop_toBottomOf="@+id/upCNo"
         android:text="任课老师"
         />
     <EditText
-        android:id="@+id/CTeacher1"
+        android:id="@+id/upCTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="请输入任课老师"
@@ -61,11 +61,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/CTeacher1"
+        app:layout_constraintTop_toBottomOf="@+id/upCTeacher"
         android:text="开始时间"
         />
     <EditText
-        android:id="@+id/CStart1"
+        android:id="@+id/upCStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="请输入任课老师"
@@ -75,31 +75,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/CStart1"
+        app:layout_constraintTop_toBottomOf="@+id/upCStart"
         android:text="结束时间"
         />
     <EditText
-        android:id="@+id/CEnd1"
+        android:id="@+id/upCEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="请输入任课老师"
         app:layout_constraintTop_toBottomOf="@+id/CEnd"/>
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/upcancel"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/logout_selector"
         app:layout_constraintStart_toEndOf="@id/sure"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CEnd1"/>
+        app:layout_constraintTop_toTopOf="@+id/upCEnd"/>
     <Button
-        android:id="@+id/sure"
+        android:id="@+id/upsure"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CEnd1"/>
+        app:layout_constraintTop_toTopOf="@+id/upCEnd"/>
     <Spinner
         android:id="@+id/alter"
         android:layout_width="wrap_content"

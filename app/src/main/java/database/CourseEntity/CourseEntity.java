@@ -1,5 +1,7 @@
 package database.CourseEntity;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Database;
@@ -7,11 +9,10 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Course")
-public class CourseEntity {
+public class CourseEntity implements Serializable {
     @ColumnInfo
     private String Cname;
-    @PrimaryKey
-    @NonNull
+    @ColumnInfo
     private String CNO;
     @ColumnInfo
     private String CTeacher;
@@ -21,6 +22,16 @@ public class CourseEntity {
     private String CEnd;
     @ColumnInfo
     private boolean isAlter;
+    @PrimaryKey (autoGenerate =  true)
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCname() {
         return Cname;

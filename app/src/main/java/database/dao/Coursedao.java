@@ -19,7 +19,7 @@ public interface Coursedao  {
     Flowable<CourseEntity> getOne(String CNO);
 
     @Insert
-    Flowable<Long> add(CourseEntity... courseEntity);
+    void add(CourseEntity entity);
     @Delete
     void delete(CourseEntity entity);
     @Update
